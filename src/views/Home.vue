@@ -245,53 +245,47 @@ export default {
     //sequencer index init
     this.index = 0;
 
-  let self = this;
+    let self = this;
 
-  var loop = new Tone.Loop(function(time){
-  
-     function repeat(time) {
-      // let step = self.index % 16;
-      // for (let i = 0; i < 4; i++) {
-      //   if ($input.checked) synth.triggerAttackRelease(note, '8n', time);
-      // }
+    var loop = new Tone.Loop(function(time) {
 
-      if (self.chSeq[self.index] == true) {
-        var chSynth = new Tone.NoiseSynth().toMaster();
-        chSynth.triggerAttackRelease("16n");
-      }
 
-      if (self.clapSeq[self.index] == true) {
-        var clapSynth = new Tone.NoiseSynth().toMaster();
-        clapSynth.set("noise.type", "white");
-        clapSynth.set("envelope.decay", ".4");
-        clapSynth.set("envelope.attack", "0.005");
-        clapSynth.set("envelope.sustain", "0");
-        clapSynth.triggerAttackRelease("16n");
-      }
+        if (self.chSeq[self.index] == true) {
+          var chSynth = new Tone.NoiseSynth().toMaster();
+          chSynth.triggerAttackRelease("16n");
+        }
 
-            if (self.sn1Seq[self.index] == true) {
-        var clapSynth = new Tone.NoiseSynth().toMaster();
-        clapSynth.set("noise.type", "pink");
-        clapSynth.set("envelope.decay", ".9");
-        clapSynth.set("envelope.attack", "0.005");
-        clapSynth.set("envelope.sustain", ".2");
-        clapSynth.triggerAttackRelease("16n");
-      }
+        if (self.clapSeq[self.index] == true) {
+          var clapSynth = new Tone.NoiseSynth().toMaster();
+          clapSynth.set("noise.type", "white");
+          clapSynth.set("envelope.decay", ".4");
+          clapSynth.set("envelope.attack", "0.005");
+          clapSynth.set("envelope.sustain", "0");
+          clapSynth.triggerAttackRelease("16n");
+        }
 
-      if (self.kickSeq[self.index] == true) {
-        var kickSynth = new Tone.MembraneSynth().toMaster();
-        kickSynth.triggerAttackRelease("C1", "16n");
-      }
+        if (self.sn1Seq[self.index] == true) {
+          var clapSynth = new Tone.NoiseSynth().toMaster();
+          clapSynth.set("noise.type", "pink");
+          clapSynth.set("envelope.decay", ".9");
+          clapSynth.set("envelope.attack", "0.005");
+          clapSynth.set("envelope.sustain", ".2");
+          clapSynth.triggerAttackRelease("16n");
+        }
 
-      // move index up one every note
-      if (self.index < 15) {
-        self.index++;
-      } else {
-        self.index = 0;
-      }
-    }
+        if (self.kickSeq[self.index] == true) {
+          var kickSynth = new Tone.MembraneSynth().toMaster();
+          kickSynth.triggerAttackRelease("C1", "16n");
+        }
 
-}, "16n").start(0);
+        // move index up one every note
+        if (self.index < 15) {
+          self.index++;
+        } else {
+          self.index = 0;
+        }
+      
+    }, "16n").start(0);
 
     // Tone.Transport.scheduleRepeat(repeat, "16n");
     // let self = this;
