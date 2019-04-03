@@ -17,7 +17,18 @@
           src="../assets/icons/stop.png"
           v-on:click="playStop"
         >
-        <img class="transport-button" src="../assets/icons/circle.png">
+        <img
+          v-if="recording"
+          class="transport-button"
+          src="../assets/icons/recording.png"
+          v-on:click="recordClicked"
+        >
+        <img
+          v-if="!recording"
+          class="transport-button"
+          src="../assets/icons/circle.png"
+          v-on:click="recordClicked"
+        >
         <knob-control
           class="vol-knob"
           :min="40"
@@ -220,16 +231,23 @@
         primary-color="#67D0F7"
       ></knob-control>
     </div>-->
+
+    <div class="audio">
+      <audio controls></audio>
+    </div>
   </div>
 </template>
 
 <script>
-import Tone from "tone";
+import Tone from 'tone';
 import StartAudioContext from "startaudiocontext";
+import {audioContext, destination, recorder} from "../helpers/audio.js"
 
 export default {
   name: "home",
   created() {
+   
+
     //need to start audio context this way due to new browser restrictions
     StartAudioContext(Tone.context, "#button").then(function() {
       console.log("audio context started");
@@ -244,47 +262,62 @@ export default {
 
     //sequencer index init
     this.index = 0;
-
+    this.recording = false;
     let self = this;
 
     var loop = new Tone.Loop(function(time) {
+      if (self.chSeq[self.index] == true) {
+        var chSynth = new Tone.NoiseSynth().toMaster();
+        chSynth.connect(destination);
+        chSynth.set("noise.type", "white");
+        chSynth.set("envelope.decay", ".1");
+        chSynth.set("envelope.attack", "0.005");
+        chSynth.set("envelope.sustain", "0");
+        chSynth.triggerAttackRelease("16n");
+      }
 
+      if (self.clapSeq[self.index] == true) {
+        var clapSynth = new Tone.NoiseSynth().toMaster();
+        clapSynth.connect(destination);
 
-        if (self.chSeq[self.index] == true) {
-          var chSynth = new Tone.NoiseSynth().toMaster();
-          chSynth.triggerAttackRelease("16n");
-        }
+        clapSynth.set("noise.type", "white");
+        clapSynth.set("envelope.decay", ".4");
+        clapSynth.set("envelope.attack", "0.005");
+        clapSynth.set("envelope.sustain", "0");
+        clapSynth.triggerAttackRelease("16n");
+      }
 
-        if (self.clapSeq[self.index] == true) {
-          var clapSynth = new Tone.NoiseSynth().toMaster();
-          clapSynth.set("noise.type", "white");
-          clapSynth.set("envelope.decay", ".4");
-          clapSynth.set("envelope.attack", "0.005");
-          clapSynth.set("envelope.sustain", "0");
-          clapSynth.triggerAttackRelease("16n");
-        }
+      if (self.sn1Seq[self.index] == true) {
+        var sn1Synth = new Tone.NoiseSynth().toMaster();
+        sn1Synth.connect(destination);
 
-        if (self.sn1Seq[self.index] == true) {
-          var clapSynth = new Tone.NoiseSynth().toMaster();
-          clapSynth.set("noise.type", "pink");
-          clapSynth.set("envelope.decay", ".9");
-          clapSynth.set("envelope.attack", "0.005");
-          clapSynth.set("envelope.sustain", ".2");
-          clapSynth.triggerAttackRelease("16n");
-        }
+        sn1Synth.set("noise.type", "pink");
+        sn1Synth.set("envelope.decay", ".39");
+        sn1Synth.set("envelope.attack", "0.001");
+        sn1Synth.set("envelope.sustain", "0");
+        sn1Synth.triggerAttackRelease("16n");
+      }
 
-        if (self.kickSeq[self.index] == true) {
-          var kickSynth = new Tone.MembraneSynth().toMaster();
-          kickSynth.triggerAttackRelease("C1", "16n");
-        }
+      if (self.kickSeq[self.index] == true) {
+        var kickSynth = new Tone.MembraneSynth().toMaster();
+        kickSynth.connect(destination);
 
-        // move index up one every note
-        if (self.index < 15) {
-          self.index++;
-        } else {
+        kickSynth.triggerAttackRelease("C1", "16n");
+      }
+
+      // move index up one every note
+      if (self.index < 15) {
+        self.index++;
+      } else {
+        if (self.recording == true) {
+          recorder.stop();
+          Tone.Transport.stop();
+          self.recording = false;
+          self.playing = false;
           self.index = 0;
         }
-      
+        self.index = 0;
+      }
     }, "16n").start(0);
 
     // Tone.Transport.scheduleRepeat(repeat, "16n");
@@ -357,6 +390,35 @@ export default {
         }
       }
     },
+    recordClicked() {
+      console.log("record button clicked");
+     
+      if (this.recording == false) {
+
+    const audio = document.querySelector("audio");
+
+    recorder.ondataavailable = e => chunks.push(e.data);
+    recorder.onstop = e => {
+      let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'})
+      audio.src = URL.createObjectURL(blob);
+      console.log(blob)
+    };
+
+        this.playing = true;
+        this.recording = true;
+        this.recorder.start();
+        Tone.Transport.start("+0.1");
+      } else {
+        this.recording = false;
+        this.playing = false;
+        Tone.Transport.stop();
+        this.index = 0;
+      }
+
+      recorder.start();
+      Tone.Transport.start("+0.1");
+      this.playing = true;
+    },
     toggleKick(number) {
       console.log(this.kickSeq[number]);
       if (this.kickSeq[number] == false) {
@@ -413,16 +475,17 @@ export default {
       } else {
         this.index = 0;
         this.playing = false;
+        this.recording = false;
         Tone.Transport.stop();
       }
     }
   },
-  computed: {},
   data() {
     return {
       bpm: 120,
       index: 0,
       playing: false,
+      recording: false,
       kickSeq: {
         0: false,
         1: false,
@@ -541,6 +604,10 @@ export default {
 </script>
 
 <style>
+.recording-active {
+  background-color: red;
+}
+
 .random-button {
   height: 20px;
   margin-right: 9px;
