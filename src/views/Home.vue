@@ -32,7 +32,7 @@
 
     <div class="step-grid">
       <div class="drum-title">Kick</div>
-      <div class="step-button" v-on:click="randomButtonClicked()">
+      <div class="step-button" v-on:click="randomButtonClicked('kick')">
         <img class="random-button" src="../assets/icons/random.png">
       </div>
       <div class="step kick" v-bind:class="{ kickActive: kickSeq[0] }" v-on:click="toggleKick(0)"></div>
@@ -64,7 +64,7 @@
 
     <div class="step-grid">
       <div class="drum-title">Clap</div>
-      <div class="step-button" v-on:click="randomButtonClicked()">
+      <div class="step-button" v-on:click="randomButtonClicked('clap')">
         <img class="random-button" src="../assets/icons/random.png">
       </div>
 
@@ -116,7 +116,7 @@
     </div>-->
     <div class="step-grid">
       <div class="drum-title">Closed Hat</div>
-      <div class="step-button" v-on:click="randomButtonClicked()">
+      <div class="step-button" v-on:click="randomButtonClicked('ch')">
         <img class="random-button" src="../assets/icons/random.png">
       </div>
       <div class="step ch" v-bind:class="{ chActive: chSeq[0] }" v-on:click="toggleCh(0)"></div>
@@ -148,7 +148,7 @@
     </div>
     <div class="step-grid">
       <div class="drum-title">Snare 1</div>
-      <div class="step-button" v-on:click="randomButtonClicked()">
+      <div class="step-button" v-on:click="randomButtonClicked('sn1')">
         <img class="random-button" src="../assets/icons/random.png">
       </div>
 
@@ -277,9 +277,18 @@ export default {
         clapSynth.triggerAttackRelease("16n");
       }
 
+            if (self.sn1Seq[self.index] == true) {
+        var clapSynth = new Tone.NoiseSynth().toMaster();
+        clapSynth.set("noise.type", "pink");
+        clapSynth.set("envelope.decay", ".9");
+        clapSynth.set("envelope.attack", "0.005");
+        clapSynth.set("envelope.sustain", ".2");
+        clapSynth.triggerAttackRelease("16n");
+      }
+
       if (self.kickSeq[self.index] == true) {
         var kickSynth = new Tone.MembraneSynth().toMaster();
-        kickSynth.triggerAttackRelease("C2", "16n");
+        kickSynth.triggerAttackRelease("C1", "16n");
       }
 
       // move index up one every note
@@ -291,8 +300,30 @@ export default {
     }
   },
   methods: {
-    randomButtonClicked() {
-      console.log(Math.random() < 0.5);
+    randomButtonClicked(track) {
+      if (track == "kick") {
+        for (let i = 0; i < 15; i++) {
+          this.kickSeq[i] = Math.random() < 0.5;
+        }
+      }
+
+      if (track == "clap") {
+        for (let i = 0; i < 15; i++) {
+          this.clapSeq[i] = Math.random() < 0.5;
+        }
+      }
+
+      if (track == "ch") {
+        for (let i = 0; i < 15; i++) {
+          this.chSeq[i] = Math.random() < 0.5;
+        }
+      }
+
+      if (track == "sn1") {
+        for (let i = 0; i < 15; i++) {
+          this.sn1Seq[i] = Math.random() < 0.5;
+        }
+      }
     },
     toggleKick(number) {
       console.log(this.kickSeq[number]);
