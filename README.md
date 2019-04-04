@@ -3,6 +3,9 @@
 ## What is it?
 Live.js is a super cool browser based drum machine / sequencer. It uses Tone.js for sequencing / synthesis / audio stuff and Vue for the front end.
 
+## Why is it called live.js?
+Because i tried to make it look kinda like ableton live 
+
 ## Project setup
 ```
 npm install

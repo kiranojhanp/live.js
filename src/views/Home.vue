@@ -239,20 +239,28 @@
 </template>
 
 <script>
-import Tone from 'tone';
+import Tone from "tone";
 import StartAudioContext from "startaudiocontext";
-import {audioContext, destination, recorder} from "../helpers/audio.js"
 
 export default {
   name: "home",
   created() {
-   
-
     //need to start audio context this way due to new browser restrictions
     StartAudioContext(Tone.context, "#button").then(function() {
       console.log("audio context started");
     });
 
+    const audioContext = Tone.context;
+    const destination = audioContext.createMediaStreamDestination();
+    this.recorder = new MediaRecorder(destination.stream);
+
+    this.recorder.ondataavailable = e => this.chunks.push(e.data);
+    this.recorder.onstop = e => {
+      let blob = new Blob(this.chunks, { type: "audio/ogg; codecs=opus" });
+      const audio = document.querySelector("audio");
+      audio.src = URL.createObjectURL(blob);
+      console.log(blob);
+    };
     // Tie play/stop button to space bar
     window.addEventListener("keydown", e => {
       if (e.code == "Space") {
@@ -309,13 +317,6 @@ export default {
       if (self.index < 15) {
         self.index++;
       } else {
-        if (self.recording == true) {
-          recorder.stop();
-          Tone.Transport.stop();
-          self.recording = false;
-          self.playing = false;
-          self.index = 0;
-        }
         self.index = 0;
       }
     }, "16n").start(0);
@@ -392,18 +393,8 @@ export default {
     },
     recordClicked() {
       console.log("record button clicked");
-     
+
       if (this.recording == false) {
-
-    const audio = document.querySelector("audio");
-
-    recorder.ondataavailable = e => chunks.push(e.data);
-    recorder.onstop = e => {
-      let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'})
-      audio.src = URL.createObjectURL(blob);
-      console.log(blob)
-    };
-
         this.playing = true;
         this.recording = true;
         this.recorder.start();
@@ -412,12 +403,9 @@ export default {
         this.recording = false;
         this.playing = false;
         Tone.Transport.stop();
+                this.recorder.stop();
         this.index = 0;
       }
-
-      recorder.start();
-      Tone.Transport.start("+0.1");
-      this.playing = true;
     },
     toggleKick(number) {
       console.log(this.kickSeq[number]);
@@ -473,15 +461,25 @@ export default {
         Tone.Transport.start("+0.1");
         this.playing = true;
       } else {
-        this.index = 0;
-        this.playing = false;
-        this.recording = false;
-        Tone.Transport.stop();
+        if (this.recording == true) {
+          this.index = 0;
+          this.playing = false;
+          this.recording = false;
+          this.recorder.stop();
+          Tone.Transport.stop();
+        } else {
+          this.index = 0;
+          this.playing = false;
+          this.recording = false;
+          Tone.Transport.stop();
+        }
       }
     }
   },
   data() {
     return {
+      chunks: [],
+      recorder: null,
       bpm: 120,
       index: 0,
       playing: false,
