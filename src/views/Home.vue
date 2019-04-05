@@ -253,7 +253,7 @@ export default {
   const audioContext = Tone.context;
     const destination = audioContext.createMediaStreamDestination();
 
-    if (MediaRecorder != undefined) {
+    if (window.MediaRecorder != undefined) {
 
     this.recorder = new MediaRecorder(destination.stream);
 
