@@ -24,7 +24,7 @@
           v-on:click="recordClicked"
         >
         <img
-          v-if="!recording"
+          v-if="!recording && recorder != null"
           class="transport-button"
           src="../assets/icons/circle.png"
           v-on:click="recordClicked"
@@ -232,7 +232,7 @@
       ></knob-control>
     </div>-->
 
-    <div class="audio">
+    <div v-if="recorder != null" class="audio">
       <audio controls></audio>
     </div>
   </div>
@@ -250,8 +250,11 @@ export default {
       console.log("audio context started");
     });
 
-    const audioContext = Tone.context;
+  const audioContext = Tone.context;
     const destination = audioContext.createMediaStreamDestination();
+
+    if (MediaRecorder != undefined) {
+
     this.recorder = new MediaRecorder(destination.stream);
 
     this.recorder.ondataavailable = e => this.chunks.push(e.data);
@@ -261,6 +264,7 @@ export default {
       audio.src = URL.createObjectURL(blob);
       console.log(blob);
     };
+    }
     // Tie play/stop button to space bar
     window.addEventListener("keydown", e => {
       if (e.code == "Space") {
@@ -403,7 +407,7 @@ export default {
         this.recording = false;
         this.playing = false;
         Tone.Transport.stop();
-                this.recorder.stop();
+        this.recorder.stop();
         this.index = 0;
       }
     },
