@@ -33,3 +33,10 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## TODO
+```
+- Let users create a profile and save recordings to cloud storage
+- Knobs to tweak drums
+- Make new skin for audio player 
+```
