@@ -29,14 +29,9 @@
           src="../assets/icons/circle.png"
           v-on:click="recordClicked"
         >
-        <img
-          v-if="!recording && recorder != null"
-          class="transport-button"
-          src="../assets/icons/delete.png"
-          v-on:click="deleteClicked"
-        >
-        <img src="../assets/icons/minus.png" class="transport-button">
-        <img src="../assets/icons/plus.png" class="transport-button">
+        <img class="transport-button" src="../assets/icons/delete.png" v-on:click="deleteClicked">
+        <!-- <img src="../assets/icons/minus.png" class="transport-button">
+        <img src="../assets/icons/plus.png" class="transport-button">-->
 
         <knob-control
           class="vol-knob"
@@ -51,11 +46,15 @@
     </div>
 
     <div class="step-grid">
-      <div class="drum-title">1</div>
+      <div
+        v-on:click="selectTrack(1)"
+        class="drum-title"
+        v-bind:class="{ trackActive: oneActive }"
+      >1</div>
       <div class="step-button" v-on:click="randomButtonClicked('kick')">
         <img class="track-button" src="../assets/icons/random.png">
       </div>
-            <div class="step-button" v-on:click="clearTrack(1)">
+      <div class="step-button" v-on:click="clearTrack(1)">
         <img class="track-button" src="../assets/icons/delete.png">
       </div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[0] }" v-on:click="toggleKick(0)"></div>
@@ -74,7 +73,7 @@
       <div class="step kick" v-bind:class="{ oneActive: seq1[13] }" v-on:click="toggleKick(13)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[14] }" v-on:click="toggleKick(14)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[15]}" v-on:click="toggleKick(15)"></div>
-      <knob-control
+      <!-- <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
@@ -82,15 +81,16 @@
         :stroke-width="12"
         v-model="kickVol"
         primary-color="#67D0F7"
-      ></knob-control>
+      ></knob-control>-->
     </div>
 
     <div class="step-grid">
-      <div class="drum-title">2</div>
+      <div v-on:click="selectTrack(2)"         v-bind:class="{ trackActive: twoActive }"
+ class="drum-title">2</div>
       <div class="step-button" v-on:click="randomButtonClicked('clap')">
         <img class="track-button" src="../assets/icons/random.png">
       </div>
-            <div class="step-button" v-on:click="clearTrack(2)">
+      <div class="step-button" v-on:click="clearTrack(2)">
         <img class="track-button" src="../assets/icons/delete.png">
       </div>
       <div class="step clap" v-bind:class="{ twoActive: seq2[0] }" v-on:click="toggleClap(0)"></div>
@@ -109,7 +109,7 @@
       <div class="step clap" v-bind:class="{ twoActive: seq2[13] }" v-on:click="toggleClap(13)"></div>
       <div class="step clap" v-bind:class="{ twoActive: seq2[14] }" v-on:click="toggleClap(14)"></div>
       <div class="step clap" v-bind:class="{ twoActive: seq2[15]}" v-on:click="toggleClap(15)"></div>
-      <knob-control
+      <!-- <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
@@ -117,7 +117,7 @@
         :stroke-width="12"
         v-model="clapVol"
         primary-color="#67D0F7"
-      ></knob-control>
+      ></knob-control>-->
     </div>
     <!-- <div class="step-grid">
       <div class="drum-title">Open Hat</div>
@@ -140,11 +140,12 @@
       ></knob-control>
     </div>-->
     <div class="step-grid">
-      <div class="drum-title">3</div>
+      <div v-on:click="selectTrack(3)"  v-bind:class="{ trackActive: threeActive }"
+class="drum-title">3</div>
       <div class="step-button" v-on:click="randomButtonClicked('ch')">
         <img class="track-button" src="../assets/icons/random.png">
       </div>
-                  <div class="step-button" v-on:click="clearTrack(3)">
+      <div class="step-button" v-on:click="clearTrack(3)">
         <img class="track-button" src="../assets/icons/delete.png">
       </div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[0] }" v-on:click="toggleCh(0)"></div>
@@ -164,7 +165,7 @@
       <div class="step ch" v-bind:class="{ threeActive: seq3[14] }" v-on:click="toggleCh(14)"></div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[15]}" v-on:click="toggleCh(15)"></div>
 
-      <knob-control
+      <!-- <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
@@ -172,14 +173,15 @@
         :stroke-width="12"
         v-model="chVol"
         primary-color="#67D0F7"
-      ></knob-control>
+      ></knob-control>-->
     </div>
     <div class="step-grid">
-      <div class="drum-title">4</div>
+      <div v-on:click="selectTrack(4)"         v-bind:class="{ trackActive: fourActive }"
+class="drum-title">4</div>
       <div class="step-button" v-on:click="randomButtonClicked('sn1')">
         <img class="track-button" src="../assets/icons/random.png">
       </div>
-            <div class="step-button" v-on:click="clearTrack(4)">
+      <div class="step-button" v-on:click="clearTrack(4)">
         <img class="track-button" src="../assets/icons/delete.png">
       </div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[0] }" v-on:click="toggleSn1(0)"></div>
@@ -198,7 +200,7 @@
       <div class="step sn1" v-bind:class="{ fourActive: seq4[13] }" v-on:click="toggleSn1(13)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[14] }" v-on:click="toggleSn1(14)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[15]}" v-on:click="toggleSn1(15)"></div>
-      <knob-control
+      <!-- <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
@@ -206,7 +208,7 @@
         :stroke-width="12"
         v-model="sn1Vol"
         primary-color="#67D0F7"
-      ></knob-control>
+      ></knob-control>-->
     </div>
     <div class="step-grid">
       <div class="indicator-spacer"></div>
@@ -226,7 +228,7 @@
       <div id="step13" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[12] }"></div>
       <div id="step14" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[13] }"></div>
       <div id="step15" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[14] }"></div>
-      <div class="indicator-spacer2"></div>
+      <!-- <div class="indicator-spacer2"></div> -->
     </div>
     <!-- <div class="step-grid">
       <div class="drum-title">Snare 2</div>
@@ -290,6 +292,8 @@ export default {
     StartAudioContext(Tone.context, "#button").then(function() {
       console.log("audio context started");
     });
+
+    Tone.context.latencyHint = "interactive";
 
     const audioContext = Tone.context;
     const destination = audioContext.createMediaStreamDestination();
@@ -423,6 +427,48 @@ export default {
     // }
   },
   methods: {
+    selectTrack(track) {
+      console.log(track);
+      if (track == this.selectedTrack) {
+        this.selectedTrack = null;
+        this.oneActive = false;
+        this.twoActive = false;
+        this.threeActive = false;
+        this.fourActive = false;
+      } else {
+        if (track == 1) {
+          this.selectedTrack = 1;
+          this.oneActive = true;
+          this.twoActive = false;
+          this.threeActive = false;
+          this.fourActive = false;
+        }
+        if (track == 2) {
+          this.selectedTrack = 2;
+
+          this.oneActive = false;
+          this.twoActive = true;
+          this.threeActive = false;
+          this.fourActive = false;
+        }
+        if (track == 3) {
+          this.selectedTrack = 3;
+
+          this.oneActive = false;
+          this.twoActive = false;
+          this.threeActive = true;
+          this.fourActive = false;
+        }
+        if (track == 4) {
+          this.selectedTrack = 4;
+
+          this.oneActive = false;
+          this.twoActive = false;
+          this.threeActive = false;
+          this.fourActive = true;
+        }
+      }
+    },
     clearTrack(track) {
       if (track == 1) {
         for (let i = 0; i < 15; i++) {
@@ -562,7 +608,11 @@ export default {
   },
   data() {
     return {
-      tracks: 4,
+      selectedTrack: null,
+      oneActive: false,
+      twoActive: false,
+      threeActive: false,
+      fourActive: false,
       hatFilter: null,
       chunks: [],
       recorder: null,
@@ -750,6 +800,10 @@ export default {
 </script>
 
 <style>
+.trackActive {
+  background-color: red !important;
+}
+
 .indicator-spacer {
   width: 70px;
 }
@@ -855,7 +909,6 @@ nav {
   height: 20px;
   width: 20px;
 }
-
 
 .step-grid {
   margin: 0 auto;
