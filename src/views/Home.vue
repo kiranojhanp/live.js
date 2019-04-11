@@ -73,20 +73,32 @@
       <div class="step kick" v-bind:class="{ oneActive: seq1[13] }" v-on:click="toggleKick(13)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[14] }" v-on:click="toggleKick(14)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[15]}" v-on:click="toggleKick(15)"></div>
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="reverbWet1"
+        primary-color="magenta"
+      ></knob-control>
       <!-- <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
-        :size="40"
+        :size="35"
         :stroke-width="12"
-        v-model="kickVol"
-        primary-color="#67D0F7"
+        v-model="sn2Vol"
+        primary-color="pink"
       ></knob-control>-->
     </div>
 
     <div class="step-grid">
-      <div v-on:click="selectTrack(2)"         v-bind:class="{ trackActive: twoActive }"
- class="drum-title">2</div>
+      <div
+        v-on:click="selectTrack(2)"
+        v-bind:class="{ trackActive: twoActive }"
+        class="drum-title"
+      >2</div>
       <div class="step-button" v-on:click="randomButtonClicked('clap')">
         <img class="track-button" src="../assets/icons/random.png">
       </div>
@@ -109,39 +121,33 @@
       <div class="step clap" v-bind:class="{ twoActive: seq2[13] }" v-on:click="toggleClap(13)"></div>
       <div class="step clap" v-bind:class="{ twoActive: seq2[14] }" v-on:click="toggleClap(14)"></div>
       <div class="step clap" v-bind:class="{ twoActive: seq2[15]}" v-on:click="toggleClap(15)"></div>
-      <!-- <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="40"
-        :stroke-width="12"
-        v-model="clapVol"
-        primary-color="#67D0F7"
-      ></knob-control>-->
-    </div>
-    <!-- <div class="step-grid">
-      <div class="drum-title">Open Hat</div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.one }" v-on:click="toggleOh('one')"></div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.two }" v-on:click="toggleOh('two')"></div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.three }" v-on:click="toggleOh('three')"></div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.four }" v-on:click="toggleOh('four')"></div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.five }" v-on:click="toggleOh('five')"></div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.six }" v-on:click="toggleOh('six')"></div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.seven }" v-on:click="toggleOh('seven')"></div>
-      <div class="step oh" v-bind:class="{ ohActive: seq3.eight }" v-on:click="toggleOh('eight')"></div>
       <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
-        :size="40"
+        :size="35"
         :stroke-width="12"
-        v-model="ohVol"
-        primary-color="#67D0F7"
+        v-model="reverbWet2"
+        primary-color="magenta"
+        step-size="1"
       ></knob-control>
-    </div>-->
+      <!-- <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="sn2Vol"
+        primary-color="pink"
+      ></knob-control>-->
+    </div>
+
     <div class="step-grid">
-      <div v-on:click="selectTrack(3)"  v-bind:class="{ trackActive: threeActive }"
-class="drum-title">3</div>
+      <div
+        v-on:click="selectTrack(3)"
+        v-bind:class="{ trackActive: threeActive }"
+        class="drum-title"
+      >3</div>
       <div class="step-button" v-on:click="randomButtonClicked('ch')">
         <img class="track-button" src="../assets/icons/random.png">
       </div>
@@ -164,20 +170,32 @@ class="drum-title">3</div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[13] }" v-on:click="toggleCh(13)"></div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[14] }" v-on:click="toggleCh(14)"></div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[15]}" v-on:click="toggleCh(15)"></div>
-
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="reverbWet3"
+        primary-color="magenta"
+        step-size="1"
+      ></knob-control>
       <!-- <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
-        :size="40"
+        :size="35"
         :stroke-width="12"
-        v-model="chVol"
-        primary-color="#67D0F7"
+        v-model="sn2Vol"
+        primary-color="pink"
       ></knob-control>-->
     </div>
     <div class="step-grid">
-      <div v-on:click="selectTrack(4)"         v-bind:class="{ trackActive: fourActive }"
-class="drum-title">4</div>
+      <div
+        v-on:click="selectTrack(4)"
+        v-bind:class="{ trackActive: fourActive }"
+        class="drum-title"
+      >4</div>
       <div class="step-button" v-on:click="randomButtonClicked('sn1')">
         <img class="track-button" src="../assets/icons/random.png">
       </div>
@@ -200,84 +218,50 @@ class="drum-title">4</div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[13] }" v-on:click="toggleSn1(13)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[14] }" v-on:click="toggleSn1(14)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[15]}" v-on:click="toggleSn1(15)"></div>
-      <!-- <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="40"
-        :stroke-width="12"
-        v-model="sn1Vol"
-        primary-color="#67D0F7"
-      ></knob-control>-->
-    </div>
-    <div class="step-grid">
-      <div class="indicator-spacer"></div>
-      <div id="step0" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[0] }"></div>
-      <div id="step1" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[0] }"></div>
-      <div id="step2" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[1] }"></div>
-      <div id="step3" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[2] }"></div>
-      <div id="step4" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[3] }"></div>
-      <div id="step5" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[4] }"></div>
-      <div id="step6" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[5] }"></div>
-      <div id="step7" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[6] }"></div>
-      <div id="step8" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[7] }"></div>
-      <div id="step9" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[8] }"></div>
-      <div id="step10" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[9] }"></div>
-      <div id="step11" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[10] }"></div>
-      <div id="step12" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[11] }"></div>
-      <div id="step13" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[12] }"></div>
-      <div id="step14" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[13] }"></div>
-      <div id="step15" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[14] }"></div>
-      <!-- <div class="indicator-spacer2"></div> -->
-    </div>
-    <!-- <div class="step-grid">
-      <div class="drum-title">Snare 2</div>
-
-      <div class="step sn2" v-bind:class="{ sn2Active: sn2Seq.one }" v-on:click="toggleSn2('one')"></div>
-      <div class="step sn2" v-bind:class="{ sn2Active: sn2Seq.two }" v-on:click="toggleSn2('two')"></div>
-      <div
-        class="step sn2"
-        v-bind:class="{ sn2Active: sn2Seq.three }"
-        v-on:click="toggleSn2('three')"
-      ></div>
-      <div
-        class="step sn2"
-        v-bind:class="{ sn2Active: sn2Seq.four }"
-        v-on:click="toggleSn2('four')"
-      ></div>
-      <div
-        class="step sn2"
-        v-bind:class="{ sn2Active: sn2Seq.five }"
-        v-on:click="toggleSn2('five')"
-      ></div>
-      <div class="step sn2" v-bind:class="{ sn2Active: sn2Seq.six }" v-on:click="toggleSn2('six')"></div>
-      <div
-        class="step sn2"
-        v-bind:class="{ sn2Active: sn2Seq.seven }"
-        v-on:click="toggleSn2('seven')"
-      ></div>
-      <div
-        class="step sn2"
-        v-bind:class="{ sn2Active: sn2Seq.eight }"
-        v-on:click="toggleSn2('eight')"
-      ></div>
-
       <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
-        :size="40"
+        :size="35"
+        :stroke-width="12"
+        v-model="reverbWet4"
+        primary-color="magenta"
+        step-size="1"
+      ></knob-control>
+      <!-- <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
         :stroke-width="12"
         v-model="sn2Vol"
-        primary-color="#67D0F7"
-      ></knob-control>
-    </div>-->
+        primary-color="pink"
+      ></knob-control>-->
+    </div>
+    <div class="step-grid indicator-grid">
+      <div class="indicator-spacer"></div>
+      <div id="step0" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[0] }"></div>
+      <div id="step1" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[1] }"></div>
+      <div id="step2" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[2] }"></div>
+      <div id="step3" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[3] }"></div>
+      <div id="step4" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[4] }"></div>
+      <div id="step5" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[5] }"></div>
+      <div id="step6" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[6] }"></div>
+      <div id="step7" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[7] }"></div>
+      <div id="step8" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[8] }"></div>
+      <div id="step9" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[9] }"></div>
+      <div id="step10" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[10] }"></div>
+      <div id="step11" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[11] }"></div>
+      <div id="step12" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[12] }"></div>
+      <div id="step13" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[13] }"></div>
+      <div id="step14" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[14] }"></div>
+      <div id="step15" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[15] }"></div>
+      <div class="indicator-spacer2"></div>
+    </div>
 
     <div v-if="recorder != null" class="audio">
       <audio controls></audio>
     </div>
-
-    <div class="controls"></div>
   </div>
 </template>
 
@@ -298,9 +282,39 @@ export default {
     const audioContext = Tone.context;
     const destination = audioContext.createMediaStreamDestination();
 
-    this.hatFilter = new Tone.Freeverb().toMaster();
-    this.hatFilter.dampening.value = 1000;
+    this.reverb1 = new Tone.Freeverb().receive("reverb").toMaster();
+    this.reverb1.connect(destination);
+    this.reverb1.dampening.value = 1000;
 
+    this.drum1 = new Tone.MembraneSynth().toMaster();
+    this.drum1.connect(destination);
+
+    this.drum2 = new Tone.NoiseSynth().toMaster();
+    this.drum2.connect(destination);
+    this.drum2.set("noise.type", "white");
+    this.drum2.set("envelope.decay", ".4");
+    this.drum2.set("envelope.attack", "0.005");
+    this.drum2.set("envelope.sustain", "0");
+
+    this.drum3 = new Tone.NoiseSynth().toMaster();
+    this.drum3.connect(destination);
+    this.drum3.set("noise.type", "white");
+    this.drum3.set("envelope.decay", "1");
+    this.drum3.set("envelope.attack", "0.005");
+    this.drum3.set("envelope.sustain", "0");
+
+    this.drum4 = new Tone.NoiseSynth().toMaster();
+    this.drum4.connect(destination);
+
+    this.drum4.set("noise.type", "pink");
+    this.drum4.set("envelope.decay", ".39");
+    this.drum4.set("envelope.attack", "0.001");
+    this.drum4.set("envelope.sustain", "0");
+
+    this.reverbSend1 = this.drum1.send("reverb", -Infinity);
+    this.reverbSend2 = this.drum2.send("reverb", -Infinity);
+    this.reverbSend3 = this.drum3.send("reverb", -Infinity);
+    this.reverbSend4 = this.drum4.send("reverb", -Infinity);
     if (window.MediaRecorder != undefined) {
       this.recorder = new MediaRecorder(destination.stream);
 
@@ -335,43 +349,19 @@ export default {
       }, time);
 
       if (self.seq3[self.index] == true) {
-        var chSynth = new Tone.NoiseSynth();
-        chSynth.connect(self.hatFilter);
-        chSynth.connect(destination);
-        chSynth.set("noise.type", "white");
-        chSynth.set("envelope.decay", ".1");
-        chSynth.set("envelope.attack", "0.005");
-        chSynth.set("envelope.sustain", "0");
-        chSynth.triggerAttackRelease("16n");
+        self.drum3.triggerAttackRelease("16n");
       }
 
       if (self.seq2[self.index] == true) {
-        var clapSynth = new Tone.NoiseSynth().toMaster();
-        clapSynth.connect(destination);
-
-        clapSynth.set("noise.type", "white");
-        clapSynth.set("envelope.decay", ".4");
-        clapSynth.set("envelope.attack", "0.005");
-        clapSynth.set("envelope.sustain", "0");
-        clapSynth.triggerAttackRelease("16n");
+        self.drum2.triggerAttackRelease("16n");
       }
 
       if (self.seq4[self.index] == true) {
-        var sn1Synth = new Tone.NoiseSynth().toMaster();
-        sn1Synth.connect(destination);
-
-        sn1Synth.set("noise.type", "pink");
-        sn1Synth.set("envelope.decay", ".39");
-        sn1Synth.set("envelope.attack", "0.001");
-        sn1Synth.set("envelope.sustain", "0");
-        sn1Synth.triggerAttackRelease("16n");
+        self.drum4.triggerAttackRelease("16n");
       }
 
       if (self.seq1[self.index] == true) {
-        var kickSynth = new Tone.MembraneSynth().toMaster();
-        kickSynth.connect(destination);
-
-        kickSynth.triggerAttackRelease("C1", "16n");
+        self.drum1.triggerAttackRelease("C1", "16n");
       }
 
       // move index up one every note
@@ -381,50 +371,6 @@ export default {
         self.index = 0;
       }
     }, "16n").start(0);
-
-    // Tone.Transport.scheduleRepeat(repeat, "16n");
-    // let self = this;
-    // function repeat(time) {
-    //   // let step = self.index % 16;
-    //   // for (let i = 0; i < 4; i++) {
-    //   //   if ($input.checked) synth.triggerAttackRelease(note, '8n', time);
-    //   // }
-
-    //   if (self.seq3[self.index] == true) {
-    //     var chSynth = new Tone.NoiseSynth().toMaster();
-    //     chSynth.triggerAttackRelease("16n");
-    //   }
-
-    //   if (self.seq2[self.index] == true) {
-    //     var clapSynth = new Tone.NoiseSynth().toMaster();
-    //     clapSynth.set("noise.type", "white");
-    //     clapSynth.set("envelope.decay", ".4");
-    //     clapSynth.set("envelope.attack", "0.005");
-    //     clapSynth.set("envelope.sustain", "0");
-    //     clapSynth.triggerAttackRelease("16n");
-    //   }
-
-    //         if (self.seq4[self.index] == true) {
-    //     var clapSynth = new Tone.NoiseSynth().toMaster();
-    //     clapSynth.set("noise.type", "pink");
-    //     clapSynth.set("envelope.decay", ".9");
-    //     clapSynth.set("envelope.attack", "0.005");
-    //     clapSynth.set("envelope.sustain", ".2");
-    //     clapSynth.triggerAttackRelease("16n");
-    //   }
-
-    //   if (self.seq1[self.index] == true) {
-    //     var kickSynth = new Tone.MembraneSynth().toMaster();
-    //     kickSynth.triggerAttackRelease("C1", "16n");
-    //   }
-
-    //   // move index up one every note
-    //   if (self.index < 15) {
-    //     self.index++;
-    //   } else {
-    //     self.index = 0;
-    //   }
-    // }
   },
   methods: {
     selectTrack(track) {
@@ -608,12 +554,25 @@ export default {
   },
   data() {
     return {
+      reverbSend1: null,
+      reverbSend2: null,
+      reverbSend3: null,
+      reverbSend4: null,
+      reverbWet1: 0,
+      reverbWet2: 0,
+      reverbWet3: 0,
+      reverbWet4: 0,
+      drum1: null,
+      drum2: null,
+      drum3: null,
+      drum4: null,
+      editingTrack: true,
       selectedTrack: null,
       oneActive: false,
       twoActive: false,
       threeActive: false,
       fourActive: false,
-      hatFilter: null,
+      reverb1: null,
       chunks: [],
       recorder: null,
       bpm: 120,
@@ -781,25 +740,38 @@ export default {
         13: false,
         14: false,
         15: false
-      },
-      kickVol: 40,
-      clapVol: 40,
-      ohVol: 40,
-      chVol: 40,
-      sn1Vol: 40,
-      sn2Vol: 40
+      }
     };
   },
   watch: {
     bpm: function(val) {
       Tone.Transport.bpm.value = val;
       console.log(Tone.Transport.bpm.value);
+    },
+    reverbWet1: function(val) {
+      this.reverbSend1.gain.value = val - 100;
+    },
+    reverbWet2: function(val) {
+      this.reverbSend2.gain.value = val - 100;
+    },
+    reverbWet3: function(val) {
+      this.reverbSend3.gain.value = val - 100;
+    },
+    reverbWet4: function(val) {
+      this.reverbSend4.gain.value = val - 100;
     }
   }
 };
 </script>
 
 <style>
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 15px;
+}
+
 .trackActive {
   background-color: red !important;
 }
@@ -809,7 +781,7 @@ export default {
 }
 
 .indicator-spacer2 {
-  width: 50px;
+  width: 80px;
 }
 
 .track-count {
@@ -823,6 +795,12 @@ export default {
 .track-button {
   height: 20px;
   margin-right: 9px;
+  opacity: 1;
+  transition: 0 "1" s ease-in-out;
+}
+
+.track-button:hover {
+  opacity: 0.7;
 }
 
 .transport {
@@ -868,6 +846,12 @@ nav {
 .transport-button {
   width: 20px;
   padding: 5px;
+  opacity: 1;
+  transition: 0 "1" s ease-in-out;
+}
+
+.transport-button:hover {
+  opacity: 0.7;
 }
 
 .drum-title {
@@ -889,17 +873,17 @@ nav {
   margin: 5px;
   height: 20px;
   width: 20px;
-  background-color: limegreen;
+  background-color: red;
   border-radius: 50%;
   opacity: 0;
-  transition: opacity 0.5s;
+  /* transition: opacity 0"1"s; */
 }
 
 .vis-step.step-playing {
   margin: 5px;
   height: 20px;
   width: 20px;
-  background-color: limegreen;
+  background-color: red;
   border-radius: 50%;
   opacity: 1;
 }
