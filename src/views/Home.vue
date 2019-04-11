@@ -303,10 +303,14 @@
       <audio controls></audio>
     </div>
 
-  <modal name="help-modal" width="100%" height="90%" >
-    <div id="help-pic">
-  <img src="../assets/help.png">
-    </div>
+  <modal name="help-modal" width="80%" height="auto" >
+    <div slot="top-right">
+      <button v-on:click="closeHelp()">❌</button>
+            </div>
+    <!-- <div id="help-pic"> -->
+      <img class="help-pic" src="../assets/help.png">
+    <!-- </div> -->
+
 </modal>
 
   </div>
@@ -435,6 +439,10 @@ export default {
     }, "16n").start(0);
   },
   methods: {
+    closeHelp() {
+          this.$modal.hide('help-modal');
+
+    },
     helpClicked() {
           this.$modal.show('help-modal');
     },
@@ -867,7 +875,7 @@ export default {
 </script>
 
 <style>
-#help-pic {
+.help-pic {
   text-align:center;
   width:100%;
   height:auto;
@@ -886,7 +894,7 @@ export default {
 }
 
 .indicator-spacer {
-  width: 70px;
+  width: 55px;
 }
 
 .indicator-spacer2 {
