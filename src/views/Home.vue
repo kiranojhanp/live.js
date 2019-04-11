@@ -558,10 +558,18 @@ export default {
       reverbSend2: null,
       reverbSend3: null,
       reverbSend4: null,
+      chorusSend1: null,
+      chorusSend2: null,
+      chorusSend3: null,
+      chorusSend4: null,
       reverbWet1: 0,
       reverbWet2: 0,
       reverbWet3: 0,
       reverbWet4: 0,
+      chorusWet1: 0,
+      chorusWet2: 0,
+      chorusWet3: 0,
+      chorusWet4: 0,
       drum1: null,
       drum2: null,
       drum3: null,
@@ -573,6 +581,7 @@ export default {
       threeActive: false,
       fourActive: false,
       reverb1: null,
+      chorus1: null,
       chunks: [],
       recorder: null,
       bpm: 120,
@@ -759,6 +768,18 @@ export default {
     },
     reverbWet4: function(val) {
       this.reverbSend4.gain.value = val - 100;
+    },
+    chorusWet1: function(val) {
+      this.chorusSend1.gain.value = val - 100;
+    },
+    chorusWet2: function(val) {
+      this.chorusSend2.gain.value = val - 100;
+    },
+    chorusWet3: function(val) {
+      this.chorusSend3.gain.value = val - 100;
+    },
+    chorusWet4: function(val) {
+      this.chorusSend4.gain.value = val - 100;
     }
   }
 };
