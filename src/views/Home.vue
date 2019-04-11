@@ -30,6 +30,7 @@
           v-on:click="recordClicked"
         >
         <img class="transport-button" src="../assets/icons/delete.png" v-on:click="deleteClicked">
+             <img class="transport-button" src="../assets/icons/help.png" v-on:click="helpClicked">
         <!-- <img src="../assets/icons/minus.png" class="transport-button">
         <img src="../assets/icons/plus.png" class="transport-button">-->
 
@@ -73,6 +74,15 @@
       <div class="step kick" v-bind:class="{ oneActive: seq1[13] }" v-on:click="toggleKick(13)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[14] }" v-on:click="toggleKick(14)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[15]}" v-on:click="toggleKick(15)"></div>
+            <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="volume1"
+        primary-color="crimson"
+      ></knob-control>
       <knob-control
         class="vol-knob"
         :min="0"
@@ -82,15 +92,15 @@
         v-model="reverbWet1"
         primary-color="magenta"
       ></knob-control>
-      <!-- <knob-control
+      <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="sn2Vol"
+        v-model="chorusWet1"
         primary-color="pink"
-      ></knob-control>-->
+      ></knob-control>
     </div>
 
     <div class="step-grid">
@@ -127,19 +137,29 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="reverbWet2"
-        primary-color="magenta"
+        v-model="volume2"
+        primary-color="crimson"
         step-size="1"
       ></knob-control>
-      <!-- <knob-control
+        <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="sn2Vol"
+        v-model="reverbWet2"
+        primary-color="magenta"
+        step-size="1"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="chorusWet2"
         primary-color="pink"
-      ></knob-control>-->
+      ></knob-control>
     </div>
 
     <div class="step-grid">
@@ -170,6 +190,16 @@
       <div class="step ch" v-bind:class="{ threeActive: seq3[13] }" v-on:click="toggleCh(13)"></div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[14] }" v-on:click="toggleCh(14)"></div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[15]}" v-on:click="toggleCh(15)"></div>
+          <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="volume3"
+        primary-color="crimson"
+        step-size="1"
+      ></knob-control>
       <knob-control
         class="vol-knob"
         :min="0"
@@ -180,15 +210,15 @@
         primary-color="magenta"
         step-size="1"
       ></knob-control>
-      <!-- <knob-control
+      <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="sn2Vol"
+        v-model="chorusWet3"
         primary-color="pink"
-      ></knob-control>-->
+      ></knob-control>
     </div>
     <div class="step-grid">
       <div
@@ -218,6 +248,16 @@
       <div class="step sn1" v-bind:class="{ fourActive: seq4[13] }" v-on:click="toggleSn1(13)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[14] }" v-on:click="toggleSn1(14)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[15]}" v-on:click="toggleSn1(15)"></div>
+           <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="volume4"
+        primary-color="crimson"
+        step-size="1"
+      ></knob-control>
       <knob-control
         class="vol-knob"
         :min="0"
@@ -228,15 +268,15 @@
         primary-color="magenta"
         step-size="1"
       ></knob-control>
-      <!-- <knob-control
+      <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="sn2Vol"
+        v-model="chorusWet4"
         primary-color="pink"
-      ></knob-control>-->
+      ></knob-control>
     </div>
     <div class="step-grid indicator-grid">
       <div class="indicator-spacer"></div>
@@ -262,7 +302,16 @@
     <div v-if="recorder != null" class="audio">
       <audio controls></audio>
     </div>
+
+  <modal name="help-modal" width="100%" height="90%" >
+    <div id="help-pic">
+  <img src="../assets/help.png">
+    </div>
+</modal>
+
   </div>
+
+
 </template>
 
 <script>
@@ -285,6 +334,11 @@ export default {
     this.reverb1 = new Tone.Freeverb().receive("reverb").toMaster();
     this.reverb1.connect(destination);
     this.reverb1.dampening.value = 1000;
+
+    this.chorus1 = new Tone.Chorus()
+			.receive("chorus")
+			.toMaster();
+    this.chorus1.connect(destination)
 
     this.drum1 = new Tone.MembraneSynth().toMaster();
     this.drum1.connect(destination);
@@ -315,6 +369,14 @@ export default {
     this.reverbSend2 = this.drum2.send("reverb", -Infinity);
     this.reverbSend3 = this.drum3.send("reverb", -Infinity);
     this.reverbSend4 = this.drum4.send("reverb", -Infinity);
+
+    this.chorusSend1 = this.drum1.send("chorus", -Infinity);
+        this.chorusSend2 = this.drum2.send("chorus", -Infinity);
+    
+        this.chorusSend3 = this.drum3.send("chorus", -Infinity);
+        this.chorusSend4 = this.drum4.send("chorus", -Infinity);
+    
+
     if (window.MediaRecorder != undefined) {
       this.recorder = new MediaRecorder(destination.stream);
 
@@ -373,6 +435,9 @@ export default {
     }, "16n").start(0);
   },
   methods: {
+    helpClicked() {
+          this.$modal.show('help-modal');
+    },
     selectTrack(track) {
       console.log(track);
       if (track == this.selectedTrack) {
@@ -554,6 +619,10 @@ export default {
   },
   data() {
     return {
+      volume1: 100,
+      volume2: 100,
+      volume3: 100,
+      volume4: 100,
       reverbSend1: null,
       reverbSend2: null,
       reverbSend3: null,
@@ -780,12 +849,31 @@ export default {
     },
     chorusWet4: function(val) {
       this.chorusSend4.gain.value = val - 100;
+    },
+      volume1: function(val) {
+      this.drum1.volume.value = val - 100;
+    },
+    volume2: function(val) {
+      this.drum2.volume.value = val - 100;
+    },
+    volume3: function(val) {
+      this.drum3.volume.value = val - 100;
+    },
+    volume4: function(val) {
+      this.drum4.volume.value = val - 100;
     }
   }
 };
 </script>
 
 <style>
+#help-pic {
+  text-align:center;
+  width:100%;
+  height:auto;
+  margin: 0 auto;
+}
+
 .controls {
   display: flex;
   align-items: center;
