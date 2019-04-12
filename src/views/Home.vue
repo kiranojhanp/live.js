@@ -24,17 +24,47 @@
           v-on:click="recordClicked"
         >
         <img
+          v-tooltip.left="{
+    content: 'Record audio',
+    show: helpActive,
+    trigger: 'manual'
+  }"
           v-if="!recording && recorder != null"
           class="transport-button"
           src="../assets/icons/circle.png"
           v-on:click="recordClicked"
         >
-        <img class="transport-button" src="../assets/icons/delete.png" v-on:click="deleteClicked">
-        <img class="transport-button" src="../assets/icons/help.png" v-on:click="helpClicked">
+        <img
+          v-tooltip.top-end="{
+    content: 'Delete track',
+    show: helpActive,
+    trigger: 'manual'
+  }"
+          class="transport-button"
+          src="../assets/icons/delete.png"
+          v-on:click="deleteClicked"
+        >
+        <img
+          v-if="helpActive"
+          class="transport-button"
+          src="../assets/icons/helpactive.png"
+          v-on:click="helpClicked"
+        >
+        <img
+          v-if="!helpActive"
+          class="transport-button"
+          src="../assets/icons/help.png"
+          v-on:click="helpClicked"
+        >
         <!-- <img src="../assets/icons/minus.png" class="transport-button">
         <img src="../assets/icons/plus.png" class="transport-button">-->
 
         <knob-control
+          v-tooltip.bottom="{
+    content: 'BPM',
+    show: helpActive,
+    trigger: 'manual'
+  }"
           class="vol-knob"
           :min="40"
           :max="300"
@@ -48,9 +78,15 @@
 
     <div class="step-grid">
       <div
+        v-tooltip.top="{
+    content: 'Select track to tweak drum',
+    show: helpActive,
+    trigger: 'manual'
+  }"
         v-on:click="selectTrack(1)"
         class="drum-title"
-        v-bind:class="{ trackActive: oneActive }"
+        v-bind:class="{ trackActive: trackOne
+        }"
       >1</div>
       <div class="step-button" v-on:click="randomButtonClicked('kick')">
         <img class="track-button" src="../assets/icons/random.png">
@@ -83,7 +119,6 @@
         v-model="volume1"
         primary-color="crimson"
       ></knob-control>
-     
     </div>
 
     <div class="step-grid">
@@ -115,6 +150,11 @@
       <div class="step clap" v-bind:class="{ twoActive: seq2[14] }" v-on:click="toggleClap(14)"></div>
       <div class="step clap" v-bind:class="{ twoActive: seq2[15]}" v-on:click="toggleClap(15)"></div>
       <knob-control
+        v-tooltip.top="{
+    content: 'Track volume',
+    show: helpActive,
+    trigger: 'manual'
+  }"
         class="vol-knob"
         :min="0"
         :max="100"
@@ -123,7 +163,6 @@
         v-model="volume2"
         primary-color="crimson"
       ></knob-control>
-
     </div>
 
     <div class="step-grid">
@@ -133,7 +172,15 @@
         class="drum-title"
       >3</div>
       <div class="step-button" v-on:click="randomButtonClicked('ch')">
-        <img class="track-button" src="../assets/icons/random.png">
+        <img
+          v-tooltip.left-start="{
+    content: 'Randomize steps',
+    show: helpActive,
+    trigger: 'manual'
+  }"
+          class="track-button"
+          src="../assets/icons/random.png"
+        >
       </div>
       <div class="step-button" v-on:click="clearTrack(3)">
         <img class="track-button" src="../assets/icons/delete.png">
@@ -163,7 +210,6 @@
         v-model="volume3"
         primary-color="crimson"
       ></knob-control>
-
     </div>
     <div class="step-grid">
       <div
@@ -175,7 +221,15 @@
         <img class="track-button" src="../assets/icons/random.png">
       </div>
       <div class="step-button" v-on:click="clearTrack(4)">
-        <img class="track-button" src="../assets/icons/delete.png">
+        <img
+          v-tooltip.right-start="{
+    content: 'Delete steps',
+    show: helpActive,
+    trigger: 'manual'
+  }"
+          class="track-button"
+          src="../assets/icons/delete.png"
+        >
       </div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[0] }" v-on:click="toggleSn1(0)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[1] }" v-on:click="toggleSn1(1)"></div>
@@ -202,7 +256,6 @@
         v-model="volume4"
         primary-color="crimson"
       ></knob-control>
-   
     </div>
     <div class="step-grid indicator-grid">
       <div class="indicator-spacer"></div>
@@ -226,6 +279,11 @@
     </div>
     <div v-if="selectedTrack == 1" class="controls">
       <knob-control
+        v-tooltip.bottom-start="{
+    content: 'Change envelope',
+    show: helpActive,
+    trigger: 'manual'
+  }"
         class="vol-knob"
         :min="0"
         :max="50"
@@ -261,30 +319,41 @@
         v-model="release1"
         primary-color="#F9F378"
       ></knob-control>
-            <div class="effects">
-
- <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet1"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet1"
-        primary-color="pink"
-      ></knob-control>
+      <div
+        v-tooltip.bottom-start="{
+    content: 'Effects',
+    show: helpActive,
+    trigger: 'manual'
+  }"
+        class="effects"
+      >
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="reverbWet1"
+          primary-color="magenta"
+        ></knob-control>
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="chebyWet1"
+          primary-color="pink"
+        ></knob-control>
       </div>
     </div>
     <div v-if="selectedTrack == 2" class="controls">
       <knob-control
+        v-tooltip.bottom-start="{
+    content: 'Change envelope',
+    show: helpActive,
+    trigger: 'manual'
+  }"
         class="vol-knob"
         :min="0"
         :max="50"
@@ -311,30 +380,41 @@
         v-model="sustain1"
         primary-color="#FA7000"
       ></knob-control>
-            <div class="effects">
-
-            <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet2"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet2"
-        primary-color="pink"
-      ></knob-control>
+      <div
+        v-tooltip.bottom-start="{
+    content: 'Effects',
+    show: helpActive,
+    trigger: 'manual'
+  }"
+        class="effects"
+      >
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="reverbWet2"
+          primary-color="magenta"
+        ></knob-control>
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="chebyWet2"
+          primary-color="pink"
+        ></knob-control>
       </div>
     </div>
     <div v-if="selectedTrack == 3" class="controls">
       <knob-control
+        v-tooltip.bottom-start="{
+    content: 'Change envelope',
+    show: helpActive,
+    trigger: 'manual'
+  }"
         class="vol-knob"
         :min="0"
         :max="50"
@@ -361,30 +441,41 @@
         v-model="sustain1"
         primary-color="#8BFD5E"
       ></knob-control>
-            <div class="effects">
-
-            <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet3"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet3"
-        primary-color="pink"
-      ></knob-control>
+      <div
+        v-tooltip.bottom-start="{
+    content: 'Effects',
+    show: helpActive,
+    trigger: 'manual'
+  }"
+        class="effects"
+      >
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="reverbWet3"
+          primary-color="magenta"
+        ></knob-control>
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="chebyWet3"
+          primary-color="pink"
+        ></knob-control>
       </div>
     </div>
     <div v-if="selectedTrack == 4" class="controls">
       <knob-control
+        v-tooltip.bottom-start="{
+    content: 'Change envelope',
+    show: helpActive,
+    trigger: 'manual'
+  }"
         class="vol-knob"
         :min="0"
         :max="50"
@@ -411,39 +502,37 @@
         v-model="sustain1"
         primary-color="#27FDA3"
       ></knob-control>
-      <div class="effects">
-         <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet4"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet4"
-        primary-color="pink"
-      ></knob-control>
+      <div
+        v-tooltip.bottom-start="{
+    content: 'Effects',
+    show: helpActive,
+    trigger: 'manual'
+  }"
+        class="effects"
+      >
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="reverbWet4"
+          primary-color="magenta"
+        ></knob-control>
+        <knob-control
+          class="vol-knob"
+          :min="0"
+          :max="100"
+          :size="35"
+          :stroke-width="12"
+          v-model="chebyWet4"
+          primary-color="pink"
+        ></knob-control>
       </div>
     </div>
     <div v-if="recorder != null" class="audio">
       <audio controls></audio>
     </div>
-
-    <modal name="help-modal" width="80%" height="auto">
-      <div slot="top-right">
-        <button v-on:click="closeHelp()">❌</button>
-      </div>
-      <!-- <div id="help-pic"> -->
-      <img class="help-pic" src="../assets/help.png">
-      <!-- </div> -->
-    </modal>
   </div>
 </template>
 
@@ -483,7 +572,7 @@ export default {
 
     this.drum3 = new Tone.NoiseSynth().toMaster();
     this.drum3.connect(destination);
-    this.drum3.set("noise.type", "white");
+    this.drum3.set("noise.type", "pink");
     this.drum3.set("envelope.decay", "1");
     this.drum3.set("envelope.attack", "0.005");
     this.drum3.set("envelope.sustain", "0");
@@ -491,7 +580,7 @@ export default {
     this.drum4 = new Tone.NoiseSynth().toMaster();
     this.drum4.connect(destination);
 
-    this.drum4.set("noise.type", "pink");
+    this.drum4.set("noise.type", "brown");
     this.drum4.set("envelope.decay", ".39");
     this.drum4.set("envelope.attack", "0.001");
     this.drum4.set("envelope.sustain", "0");
@@ -564,12 +653,25 @@ export default {
       }
     }, "16n").start(0);
   },
+  computed: {
+    trackOne: function() {
+      if (this.helpActive == true || this.oneActive == true) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   methods: {
-    closeHelp() {
-      this.$modal.hide("help-modal");
-    },
+    // closeHelp() {
+    //   this.$modal.hide("help-modal");
+    // },
     helpClicked() {
-      this.$modal.show("help-modal");
+      if (this.helpActive == false) {
+        this.helpActive = true;
+      } else {
+        this.helpActive = false;
+      }
     },
     selectTrack(track) {
       console.log(track);
@@ -754,6 +856,7 @@ export default {
   },
   data() {
     return {
+      helpActive: false,
       attack1: 1,
       decay1: 4,
       sustain1: 1,
@@ -762,12 +865,12 @@ export default {
       sustain2: 0,
       decay2: 4,
       type2: "white",
-      attack3: 0.005,
+      attack3: 5,
       decay3: 1,
       type3: "pink",
       sustain3: 0,
-      attack4: 0.001,
-      decay4: 0.39,
+      attack4: 1,
+      decay4: 4,
       sustain4: 0,
       type4: "brown",
       volume1: 100,
@@ -1034,7 +1137,7 @@ export default {
     sustain2: function(val) {
       this.drum2.envelope.sustain = val / 100;
     },
-        attack3: function(val) {
+    attack3: function(val) {
       this.drum3.envelope.attack = val / 1000;
     },
     decay3: function(val) {
@@ -1043,7 +1146,7 @@ export default {
     sustain3: function(val) {
       this.drum3.envelope.sustain = val / 100;
     },
-        attack4: function(val) {
+    attack4: function(val) {
       this.drum4.envelope.attack = val / 1000;
     },
     decay4: function(val) {
@@ -1057,15 +1160,21 @@ export default {
 </script>
 
 <style>
+.vue-tooltip-theme {
+  background-color: #434343;
+  color: #f1f1f1;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  padding: 10px;
+}
 .effects {
-  display:flex;
+  display: flex;
   margin-left: 20px;
 }
 
 .audio {
   position: absolute;
   bottom: 0;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   text-align: center;
   width: 100%;
 }
