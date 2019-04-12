@@ -98,7 +98,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="chorusWet1"
+        v-model="chebyWet1"
         primary-color="pink"
       ></knob-control>
     </div>
@@ -139,7 +139,6 @@
         :stroke-width="12"
         v-model="volume2"
         primary-color="crimson"
-        step-size="1"
       ></knob-control>
         <knob-control
         class="vol-knob"
@@ -149,7 +148,6 @@
         :stroke-width="12"
         v-model="reverbWet2"
         primary-color="magenta"
-        step-size="1"
       ></knob-control>
       <knob-control
         class="vol-knob"
@@ -157,7 +155,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="chorusWet2"
+        v-model="chebyWet2"
         primary-color="pink"
       ></knob-control>
     </div>
@@ -198,7 +196,6 @@
         :stroke-width="12"
         v-model="volume3"
         primary-color="crimson"
-        step-size="1"
       ></knob-control>
       <knob-control
         class="vol-knob"
@@ -208,7 +205,6 @@
         :stroke-width="12"
         v-model="reverbWet3"
         primary-color="magenta"
-        step-size="1"
       ></knob-control>
       <knob-control
         class="vol-knob"
@@ -216,7 +212,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="chorusWet3"
+        v-model="chebyWet3"
         primary-color="pink"
       ></knob-control>
     </div>
@@ -256,7 +252,6 @@
         :stroke-width="12"
         v-model="volume4"
         primary-color="crimson"
-        step-size="1"
       ></knob-control>
       <knob-control
         class="vol-knob"
@@ -266,7 +261,6 @@
         :stroke-width="12"
         v-model="reverbWet4"
         primary-color="magenta"
-        step-size="1"
       ></knob-control>
       <knob-control
         class="vol-knob"
@@ -274,7 +268,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="chorusWet4"
+        v-model="chebyWet4"
         primary-color="pink"
       ></knob-control>
     </div>
@@ -298,6 +292,9 @@
       <div id="step15" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[15] }"></div>
       <div class="indicator-spacer2"></div>
     </div>
+
+    
+
 
     <div v-if="recorder != null" class="audio">
       <audio controls></audio>
@@ -339,10 +336,10 @@ export default {
     this.reverb1.connect(destination);
     this.reverb1.dampening.value = 1000;
 
-    this.chorus1 = new Tone.Chorus()
-			.receive("chorus")
+    this.cheby1 = new Tone.Chebyshev(50)
+			.receive("cheby")
 			.toMaster();
-    this.chorus1.connect(destination)
+    this.cheby1.connect(destination)
 
     this.drum1 = new Tone.MembraneSynth().toMaster();
     this.drum1.connect(destination);
@@ -374,11 +371,11 @@ export default {
     this.reverbSend3 = this.drum3.send("reverb", -Infinity);
     this.reverbSend4 = this.drum4.send("reverb", -Infinity);
 
-    this.chorusSend1 = this.drum1.send("chorus", -Infinity);
-        this.chorusSend2 = this.drum2.send("chorus", -Infinity);
+    this.chebySend1 = this.drum1.send("cheby", -Infinity);
+        this.chebySend2 = this.drum2.send("cheby", -Infinity);
     
-        this.chorusSend3 = this.drum3.send("chorus", -Infinity);
-        this.chorusSend4 = this.drum4.send("chorus", -Infinity);
+        this.chebySend3 = this.drum3.send("cheby", -Infinity);
+        this.chebySend4 = this.drum4.send("cheby", -Infinity);
     
 
     if (window.MediaRecorder != undefined) {
@@ -490,22 +487,22 @@ export default {
     },
     clearTrack(track) {
       if (track == 1) {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 16; i++) {
           this.seq1[i] = false;
         }
       }
       if (track == 2) {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 16; i++) {
           this.seq2[i] = false;
         }
       }
       if (track == 3) {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 16; i++) {
           this.seq3[i] = false;
         }
       }
       if (track == 4) {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 16; i++) {
           this.seq4[i] = false;
         }
       }
@@ -514,6 +511,8 @@ export default {
       for (var i = 1; i <= 4; i++) {
         this.clearTrack(i);
       }
+        const audio = document.querySelector("audio");
+        audio.src = null;
     },
     randomButtonClicked(track) {
       if (track == "kick") {
@@ -635,18 +634,18 @@ export default {
       reverbSend2: null,
       reverbSend3: null,
       reverbSend4: null,
-      chorusSend1: null,
-      chorusSend2: null,
-      chorusSend3: null,
-      chorusSend4: null,
+      chebySend1: null,
+      chebySend2: null,
+      chebySend3: null,
+      chebySend4: null,
       reverbWet1: 0,
       reverbWet2: 0,
       reverbWet3: 0,
       reverbWet4: 0,
-      chorusWet1: 0,
-      chorusWet2: 0,
-      chorusWet3: 0,
-      chorusWet4: 0,
+      chebyWet1: 0,
+      chebyWet2: 0,
+      chebyWet3: 0,
+      chebyWet4: 0,
       drum1: null,
       drum2: null,
       drum3: null,
@@ -658,7 +657,7 @@ export default {
       threeActive: false,
       fourActive: false,
       reverb1: null,
-      chorus1: null,
+      cheby1: null,
       chunks: [],
       recorder: null,
       bpm: 120,
@@ -846,17 +845,17 @@ export default {
     reverbWet4: function(val) {
       this.reverbSend4.gain.value = val - 100;
     },
-    chorusWet1: function(val) {
-      this.chorusSend1.gain.value = val - 100;
+    chebyWet1: function(val) {
+      this.chebySend1.gain.value = val - 100;
     },
-    chorusWet2: function(val) {
-      this.chorusSend2.gain.value = val - 100;
+    chebyWet2: function(val) {
+      this.chebySend2.gain.value = val - 100;
     },
-    chorusWet3: function(val) {
-      this.chorusSend3.gain.value = val - 100;
+    chebyWet3: function(val) {
+      this.chebySend3.gain.value = val - 100;
     },
-    chorusWet4: function(val) {
-      this.chorusSend4.gain.value = val - 100;
+    chebyWet4: function(val) {
+      this.chebySend4.gain.value = val - 100;
     },
       volume1: function(val) {
       this.drum1.volume.value = val - 100;
