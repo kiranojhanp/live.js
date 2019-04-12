@@ -292,10 +292,44 @@
       <div id="step15" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[15] }"></div>
       <div class="indicator-spacer2"></div>
     </div>
-
-    
-
-
+<div v-if="selectedTrack == 1" class="controls">
+                <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="50"
+        :size="35"
+        :stroke-width="12"
+        v-model="attack1"
+        primary-color="#F9F378"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="decay1"
+        primary-color="#F9F378"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="sustain1"
+        primary-color="#F9F378"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="release1"
+        primary-color="#F9F378"
+      ></knob-control>
+</div>
     <div v-if="recorder != null" class="audio">
       <audio controls></audio>
     </div>
@@ -626,6 +660,22 @@ export default {
   },
   data() {
     return {
+      attack1: 0.001,
+      decay1: 0.4,
+      sustain1: 0.01,
+      release1: 1.4,
+      attack2: 0.005,
+      sustain2: 0,
+      decay2: .4,
+      type2: "white",
+      attack3: 0.005,
+      decay3: 1,
+      type3: "pink",
+      sustain3: 0,
+      attack4: 0.001,
+      decay4: .39,
+      sustain4: 0,
+      type4: "brown",
       volume1: 100,
       volume2: 100,
       volume3: 100,
@@ -868,12 +918,40 @@ export default {
     },
     volume4: function(val) {
       this.drum4.volume.value = val - 100;
+    },
+    attack1: function(val) {
+      this.drum1.envelope.attack = val / 1000;
+    },
+    decay1: function(val) {
+      this.drum1.envelope.decay = val / 10;
+    },
+    sustain1: function(val) {
+      this.drum1.envelope.sustain = val / 100;
+    },
+    release1: function(val) {
+      this.drum1.envelope.release = val;
+    },
+    attack2: function(val) {
+      this.drum2.envelope.attack = val / 1000;
+    },
+    decay2: function(val) {
+      this.drum2.envelope.decay = val / 10;
+    },
+    sustain2: function(val) {
+      this.drum2.envelope.sustain = val / 100;
+    },
+    type2: function(val) {
+      
     }
   }
 };
 </script>
 
 <style>
+.audio {
+  align-self: flex-end;
+}
+
 .help-pic {
   text-align:center;
   width:100%;
