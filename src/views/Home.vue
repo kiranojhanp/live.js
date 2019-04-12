@@ -359,7 +359,7 @@
         :max="50"
         :size="35"
         :stroke-width="12"
-        v-model="attack1"
+        v-model="attack2"
         primary-color="#FA7000"
       ></knob-control>
       <knob-control
@@ -368,7 +368,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="decay1"
+        v-model="decay2"
         primary-color="#FA7000"
       ></knob-control>
       <knob-control
@@ -377,7 +377,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="sustain1"
+        v-model="sustain2"
         primary-color="#FA7000"
       ></knob-control>
       <div
@@ -420,7 +420,7 @@
         :max="50"
         :size="35"
         :stroke-width="12"
-        v-model="attack1"
+        v-model="attack3"
         primary-color="#8BFD5E"
       ></knob-control>
       <knob-control
@@ -429,7 +429,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="decay1"
+        v-model="decay3"
         primary-color="#8BFD5E"
       ></knob-control>
       <knob-control
@@ -438,7 +438,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="sustain1"
+        v-model="sustain3"
         primary-color="#8BFD5E"
       ></knob-control>
       <div
@@ -481,7 +481,7 @@
         :max="50"
         :size="35"
         :stroke-width="12"
-        v-model="attack1"
+        v-model="attack4"
         primary-color="#27FDA3"
       ></knob-control>
       <knob-control
@@ -490,7 +490,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="decay1"
+        v-model="decay4"
         primary-color="#27FDA3"
       ></knob-control>
       <knob-control
@@ -499,7 +499,7 @@
         :max="100"
         :size="35"
         :stroke-width="12"
-        v-model="sustain1"
+        v-model="sustain4"
         primary-color="#27FDA3"
       ></knob-control>
       <div
@@ -1198,7 +1198,7 @@ export default {
 }
 
 .indicator-spacer {
-  width: 55px;
+  width: 75px;
 }
 
 .indicator-spacer2 {
