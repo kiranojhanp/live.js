@@ -1198,11 +1198,11 @@ export default {
 }
 
 .indicator-spacer {
-  width: 75px;
+  width: 90px;
 }
 
 .indicator-spacer2 {
-  width: 80px;
+  width: 35px;
 }
 
 .track-count {
