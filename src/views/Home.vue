@@ -30,7 +30,7 @@
           v-on:click="recordClicked"
         >
         <img class="transport-button" src="../assets/icons/delete.png" v-on:click="deleteClicked">
-             <img class="transport-button" src="../assets/icons/help.png" v-on:click="helpClicked">
+        <img class="transport-button" src="../assets/icons/help.png" v-on:click="helpClicked">
         <!-- <img src="../assets/icons/minus.png" class="transport-button">
         <img src="../assets/icons/plus.png" class="transport-button">-->
 
@@ -74,7 +74,7 @@
       <div class="step kick" v-bind:class="{ oneActive: seq1[13] }" v-on:click="toggleKick(13)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[14] }" v-on:click="toggleKick(14)"></div>
       <div class="step kick" v-bind:class="{ oneActive: seq1[15]}" v-on:click="toggleKick(15)"></div>
-            <knob-control
+      <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
@@ -83,24 +83,7 @@
         v-model="volume1"
         primary-color="crimson"
       ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet1"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet1"
-        primary-color="pink"
-      ></knob-control>
+     
     </div>
 
     <div class="step-grid">
@@ -140,24 +123,7 @@
         v-model="volume2"
         primary-color="crimson"
       ></knob-control>
-        <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet2"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet2"
-        primary-color="pink"
-      ></knob-control>
+
     </div>
 
     <div class="step-grid">
@@ -188,7 +154,7 @@
       <div class="step ch" v-bind:class="{ threeActive: seq3[13] }" v-on:click="toggleCh(13)"></div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[14] }" v-on:click="toggleCh(14)"></div>
       <div class="step ch" v-bind:class="{ threeActive: seq3[15]}" v-on:click="toggleCh(15)"></div>
-          <knob-control
+      <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
@@ -197,24 +163,7 @@
         v-model="volume3"
         primary-color="crimson"
       ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet3"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet3"
-        primary-color="pink"
-      ></knob-control>
+
     </div>
     <div class="step-grid">
       <div
@@ -244,7 +193,7 @@
       <div class="step sn1" v-bind:class="{ fourActive: seq4[13] }" v-on:click="toggleSn1(13)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[14] }" v-on:click="toggleSn1(14)"></div>
       <div class="step sn1" v-bind:class="{ fourActive: seq4[15]}" v-on:click="toggleSn1(15)"></div>
-           <knob-control
+      <knob-control
         class="vol-knob"
         :min="0"
         :max="100"
@@ -253,24 +202,7 @@
         v-model="volume4"
         primary-color="crimson"
       ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="reverbWet4"
-        primary-color="magenta"
-      ></knob-control>
-      <knob-control
-        class="vol-knob"
-        :min="0"
-        :max="100"
-        :size="35"
-        :stroke-width="12"
-        v-model="chebyWet4"
-        primary-color="pink"
-      ></knob-control>
+   
     </div>
     <div class="step-grid indicator-grid">
       <div class="indicator-spacer"></div>
@@ -292,8 +224,8 @@
       <div id="step15" class="vis-step indicator" v-bind:class="{ stepPlaying: indicatorSeq[15] }"></div>
       <div class="indicator-spacer2"></div>
     </div>
-<div v-if="selectedTrack == 1" class="controls">
-                <knob-control
+    <div v-if="selectedTrack == 1" class="controls">
+      <knob-control
         class="vol-knob"
         :min="0"
         :max="50"
@@ -329,24 +261,190 @@
         v-model="release1"
         primary-color="#F9F378"
       ></knob-control>
-</div>
+            <div class="effects">
+
+ <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="reverbWet1"
+        primary-color="magenta"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="chebyWet1"
+        primary-color="pink"
+      ></knob-control>
+      </div>
+    </div>
+    <div v-if="selectedTrack == 2" class="controls">
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="50"
+        :size="35"
+        :stroke-width="12"
+        v-model="attack1"
+        primary-color="#FA7000"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="decay1"
+        primary-color="#FA7000"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="sustain1"
+        primary-color="#FA7000"
+      ></knob-control>
+            <div class="effects">
+
+            <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="reverbWet2"
+        primary-color="magenta"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="chebyWet2"
+        primary-color="pink"
+      ></knob-control>
+      </div>
+    </div>
+    <div v-if="selectedTrack == 3" class="controls">
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="50"
+        :size="35"
+        :stroke-width="12"
+        v-model="attack1"
+        primary-color="#8BFD5E"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="decay1"
+        primary-color="#8BFD5E"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="sustain1"
+        primary-color="#8BFD5E"
+      ></knob-control>
+            <div class="effects">
+
+            <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="reverbWet3"
+        primary-color="magenta"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="chebyWet3"
+        primary-color="pink"
+      ></knob-control>
+      </div>
+    </div>
+    <div v-if="selectedTrack == 4" class="controls">
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="50"
+        :size="35"
+        :stroke-width="12"
+        v-model="attack1"
+        primary-color="#27FDA3"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="decay1"
+        primary-color="#27FDA3"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="1"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="sustain1"
+        primary-color="#27FDA3"
+      ></knob-control>
+      <div class="effects">
+         <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="reverbWet4"
+        primary-color="magenta"
+      ></knob-control>
+      <knob-control
+        class="vol-knob"
+        :min="0"
+        :max="100"
+        :size="35"
+        :stroke-width="12"
+        v-model="chebyWet4"
+        primary-color="pink"
+      ></knob-control>
+      </div>
+    </div>
     <div v-if="recorder != null" class="audio">
       <audio controls></audio>
     </div>
 
-  <modal name="help-modal" width="80%" height="auto" >
-    <div slot="top-right">
-      <button v-on:click="closeHelp()">❌</button>
-            </div>
-    <!-- <div id="help-pic"> -->
+    <modal name="help-modal" width="80%" height="auto">
+      <div slot="top-right">
+        <button v-on:click="closeHelp()">❌</button>
+      </div>
+      <!-- <div id="help-pic"> -->
       <img class="help-pic" src="../assets/help.png">
-    <!-- </div> -->
-
-</modal>
-
+      <!-- </div> -->
+    </modal>
   </div>
-
-
 </template>
 
 <script>
@@ -370,10 +468,8 @@ export default {
     this.reverb1.connect(destination);
     this.reverb1.dampening.value = 1000;
 
-    this.cheby1 = new Tone.Chebyshev(50)
-			.receive("cheby")
-			.toMaster();
-    this.cheby1.connect(destination)
+    this.cheby1 = new Tone.Chebyshev(50).receive("cheby").toMaster();
+    this.cheby1.connect(destination);
 
     this.drum1 = new Tone.MembraneSynth().toMaster();
     this.drum1.connect(destination);
@@ -406,11 +502,10 @@ export default {
     this.reverbSend4 = this.drum4.send("reverb", -Infinity);
 
     this.chebySend1 = this.drum1.send("cheby", -Infinity);
-        this.chebySend2 = this.drum2.send("cheby", -Infinity);
-    
-        this.chebySend3 = this.drum3.send("cheby", -Infinity);
-        this.chebySend4 = this.drum4.send("cheby", -Infinity);
-    
+    this.chebySend2 = this.drum2.send("cheby", -Infinity);
+
+    this.chebySend3 = this.drum3.send("cheby", -Infinity);
+    this.chebySend4 = this.drum4.send("cheby", -Infinity);
 
     if (window.MediaRecorder != undefined) {
       this.recorder = new MediaRecorder(destination.stream);
@@ -471,11 +566,10 @@ export default {
   },
   methods: {
     closeHelp() {
-          this.$modal.hide('help-modal');
-
+      this.$modal.hide("help-modal");
     },
     helpClicked() {
-          this.$modal.show('help-modal');
+      this.$modal.show("help-modal");
     },
     selectTrack(track) {
       console.log(track);
@@ -545,8 +639,8 @@ export default {
       for (var i = 1; i <= 4; i++) {
         this.clearTrack(i);
       }
-        const audio = document.querySelector("audio");
-        audio.src = null;
+      const audio = document.querySelector("audio");
+      audio.src = null;
     },
     randomButtonClicked(track) {
       if (track == "kick") {
@@ -660,20 +754,20 @@ export default {
   },
   data() {
     return {
-      attack1: 0.001,
-      decay1: 0.4,
-      sustain1: 0.01,
-      release1: 1.4,
-      attack2: 0.005,
+      attack1: 1,
+      decay1: 4,
+      sustain1: 1,
+      release1: 2,
+      attack2: 5,
       sustain2: 0,
-      decay2: .4,
+      decay2: 4,
       type2: "white",
       attack3: 0.005,
       decay3: 1,
       type3: "pink",
       sustain3: 0,
       attack4: 0.001,
-      decay4: .39,
+      decay4: 0.39,
       sustain4: 0,
       type4: "brown",
       volume1: 100,
@@ -907,7 +1001,7 @@ export default {
     chebyWet4: function(val) {
       this.chebySend4.gain.value = val - 100;
     },
-      volume1: function(val) {
+    volume1: function(val) {
       this.drum1.volume.value = val - 100;
     },
     volume2: function(val) {
@@ -940,22 +1034,46 @@ export default {
     sustain2: function(val) {
       this.drum2.envelope.sustain = val / 100;
     },
-    type2: function(val) {
-      
+        attack3: function(val) {
+      this.drum3.envelope.attack = val / 1000;
+    },
+    decay3: function(val) {
+      this.drum3.envelope.decay = val / 10;
+    },
+    sustain3: function(val) {
+      this.drum3.envelope.sustain = val / 100;
+    },
+        attack4: function(val) {
+      this.drum4.envelope.attack = val / 1000;
+    },
+    decay4: function(val) {
+      this.drum4.envelope.decay = val / 10;
+    },
+    sustain4: function(val) {
+      this.drum4.envelope.sustain = val / 100;
     }
   }
 };
 </script>
 
 <style>
+.effects {
+  display:flex;
+  margin-left: 20px;
+}
+
 .audio {
-  align-self: flex-end;
+  position: absolute;
+  bottom: 0;
+  padding-bottom:20px;
+  text-align: center;
+  width: 100%;
 }
 
 .help-pic {
-  text-align:center;
-  width:100%;
-  height:auto;
+  text-align: center;
+  width: 100%;
+  height: auto;
   margin: 0 auto;
 }
 
