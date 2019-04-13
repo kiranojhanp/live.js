@@ -577,10 +577,10 @@ export default {
     this.drum3.set("envelope.attack", "0.005");
     this.drum3.set("envelope.sustain", "0");
 
-    this.drum4 = new Tone.NoiseSynth().toMaster();
+    this.drum4 = new Tone.MetalSynth ().toMaster();
     this.drum4.connect(destination);
 
-    this.drum4.set("noise.type", "brown");
+    // this.drum4.set("noise.type", "brown");
     this.drum4.set("envelope.decay", ".39");
     this.drum4.set("envelope.attack", "0.001");
     this.drum4.set("envelope.sustain", "0");
@@ -1150,7 +1150,7 @@ export default {
       this.drum4.envelope.attack = val / 1000;
     },
     decay4: function(val) {
-      this.drum4.envelope.decay = val / 10;
+      this.drum4.envelope.decay = val / 100;
     },
     sustain4: function(val) {
       this.drum4.envelope.sustain = val / 100;
