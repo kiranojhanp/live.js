@@ -112,7 +112,7 @@
       <div class="step kick" v-bind:class="{ oneActive: seq1[15]}" v-on:click="toggleKick(15)"></div>
       <knob-control
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="100"
         :size="35"
         :stroke-width="12"
@@ -156,7 +156,7 @@
     trigger: 'manual'
   }"
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="100"
         :size="35"
         :stroke-width="12"
@@ -203,7 +203,7 @@
       <div class="step ch" v-bind:class="{ threeActive: seq3[15]}" v-on:click="toggleCh(15)"></div>
       <knob-control
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="100"
         :size="35"
         :stroke-width="12"
@@ -249,7 +249,7 @@
       <div class="step sn1" v-bind:class="{ fourActive: seq4[15]}" v-on:click="toggleSn1(15)"></div>
       <knob-control
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="100"
         :size="35"
         :stroke-width="12"
@@ -285,7 +285,7 @@
     trigger: 'manual'
   }"
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="50"
         :size="35"
         :stroke-width="12"
@@ -329,7 +329,7 @@
       >
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
@@ -338,7 +338,7 @@
         ></knob-control>
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
@@ -355,7 +355,7 @@
     trigger: 'manual'
   }"
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="50"
         :size="35"
         :stroke-width="12"
@@ -390,7 +390,7 @@
       >
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
@@ -399,7 +399,7 @@
         ></knob-control>
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
@@ -416,7 +416,7 @@
     trigger: 'manual'
   }"
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="50"
         :size="35"
         :stroke-width="12"
@@ -451,7 +451,7 @@
       >
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
@@ -460,7 +460,7 @@
         ></knob-control>
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
@@ -477,7 +477,7 @@
     trigger: 'manual'
   }"
         class="vol-knob"
-        :min="0"
+        :min="1"
         :max="50"
         :size="35"
         :stroke-width="12"
@@ -512,7 +512,7 @@
       >
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
@@ -521,7 +521,7 @@
         ></knob-control>
         <knob-control
           class="vol-knob"
-          :min="0"
+          :min="1"
           :max="100"
           :size="35"
           :stroke-width="12"
