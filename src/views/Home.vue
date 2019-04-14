@@ -543,6 +543,9 @@ import StartAudioContext from "startaudiocontext";
 export default {
   name: "home",
   created() {
+    console.log(process.env.VUE_APP_TRACKING_ID)
+
+
     //need to start audio context this way due to new browser restrictions
     StartAudioContext(Tone.context, "#button").then(function() {
       console.log("audio context started");
